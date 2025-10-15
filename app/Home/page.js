@@ -5,8 +5,9 @@ import {GetUsers,metadata} from "../actions/useractions"
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import Image from "next/image";
 
-const page = () => {
+const Page = () => {
   
   const [userdata, setuserdata] = useState([])
    const { data: session, status } = useSession()
@@ -22,7 +23,6 @@ const page = () => {
     useEffect(() => {
         const getUser = async () => {
           const users = await GetUsers(session?.user?.email)
-          console.log(users)
           setuserdata(users)
           
         };
@@ -71,4 +71,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

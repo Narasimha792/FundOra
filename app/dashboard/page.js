@@ -10,7 +10,7 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
-const dashboard = () => {
+const Dashboard = () => {
   const { data: session, status } = useSession();
 
   const [currentUser, setcurrentUser] = useState({})
@@ -19,9 +19,7 @@ const dashboard = () => {
   const Username = session?.user?.email;
   useEffect(() => {
     const getUser = async () => {
-      console.log(Username)
       const u = await fetchUser(`${Username}`);
-      console.log(u)
       setcurrentUser(u);
 
     };
@@ -80,7 +78,6 @@ useEffect(() => {
 
 
 
-  console.log(currentUser)
 
   return (
     <> <ToastContainer
@@ -135,4 +132,4 @@ useEffect(() => {
   );
 };
 
-export default dashboard
+export default Dashboard

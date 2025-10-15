@@ -6,8 +6,9 @@ import { useRouter, useParams } from "next/navigation";
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import Script from 'next/script';
+import Image from "next/image";
 
-const page = () => {
+const Page = () => {
 
 
 
@@ -25,7 +26,6 @@ const page = () => {
     const getUser = async () => {
       const u = await fetchUser(`${username}@gmail.com`);
       setcurrentUser(u);
-      console.log(u)
     };
     getUser();
   }, [username]);
@@ -36,7 +36,6 @@ const page = () => {
     return <div className="text-white">User not Found</div>; // show while fetching
   }
   const Posts = currentUser?.works || [];
-  console.log(Posts.description)
 
   return (
     <div className='flex flex-col'>
@@ -107,9 +106,6 @@ const page = () => {
             }
             // 
           }
-          console.log(w.url)
-          console.log(`https://www.youtube.com/embed/${w.url.split("/shorts/")[1]}`)
-
 
           return (
             <div key={i} className=" mt-10 bg-white rounded-xl shadow-lg overflow-hidden flex flex-col items-center  w-[80vw] md:w-[50vw]">
@@ -188,4 +184,4 @@ const page = () => {
   );
 }
 
-export default page
+export default Page

@@ -12,7 +12,7 @@ import { useSearchParams } from 'next/navigation';
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const username = () => {
+const Username = () => {
   const [pamount, setpamount] = useState(0)
   const searchParams = useSearchParams()
   const [currentUser, setcurrentUser] = useState({})
@@ -23,7 +23,6 @@ const username = () => {
   useEffect(() => {
     const getUser = async () => {
       const payments = await GetPayData(`${Username}`)
-      console.log(Username)
       const u = await fetchUser(`${Username}@gmail.com`);
       setcurrentUser(u);
       setpaymentdata(payments);
@@ -214,4 +213,4 @@ const username = () => {
   // }
 }
 
-export default username
+export default Username

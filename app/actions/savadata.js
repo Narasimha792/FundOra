@@ -9,7 +9,6 @@ await mongoose.connect(process.env.MONGO_URI)
 export const Save = async (data, id) => {
   // Assuming you want to create a new user with the provided data 
   let currentdata = await User.findOne({ email: id })
-  console.log(data)
   currentdata.name = data.name;
   currentdata.password = data.password;
   currentdata.UserType = data.UserType;

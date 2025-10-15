@@ -6,6 +6,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 import { useParams } from 'next/navigation'
 import { usePathname } from 'next/navigation'
+import Image from "next/image";
 
 const Navbar = () => {
   const params=useParams()
@@ -24,7 +25,7 @@ const isHidden = hiddenRoutes.includes(pathname)
   if (session) {
     return (
       <div className=' flex justify-between items-center w-[100vw] bg-gray-800 text-white h-15 px-10 fixed z-9'>
-        <div onClick={() => router.push("/")} className='flex items-center gap-4 cursor-pointer'><span><img className="h-8 rounded-full" src="/Money Bag.gif" alt="Funding App Logo" /></span><h1 className='md:text-3xl  text-2xl font-bold'>FundOra </h1></div>
+        <div onClick={() => router.push("/")} className='flex items-center gap-4 cursor-pointer'><span><Image className="h-8  rounded-full" width={32} height={32}  src="/Money Bag.gif" alt="Funding App Logo" /></span><h1 className='md:text-3xl  text-2xl font-bold'>FundOra </h1></div>
         <nav className='flex space-between items-center'>
           {/* <ul className='flex space-x-10'>
           <li><Link href="/">Home</a></li>
@@ -104,7 +105,7 @@ const isHidden = hiddenRoutes.includes(pathname)
 
   return (
     <div className='flex justify-between items-center bg-gray-800 text-white h-15 px-10'>
-      <div onClick={() => router.push("/")} className='flex items-center gap-4 cursor-pointer '><span><img className="h-8 rounded-full" src="/Money Bag.gif" alt="Funding App Logo" /></span><h1 className='text-3xl font-bold'>FundOra</h1></div>
+      <div onClick={() => router.push("/")} className='flex items-center gap-4 cursor-pointer '><span><Image className="h-8 rounded-full" src="/Money Bag.gif" width={32} height={32} alt="Funding App Logo" /></span><h1 className='text-3xl font-bold'>FundOra</h1></div>
       <nav className='flex space-between items-center justify-center'>
         {/* <ul className='flex space-x-10'>
           <li><Link href="/">Home</a></li>

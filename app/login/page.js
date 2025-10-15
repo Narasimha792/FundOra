@@ -6,7 +6,7 @@ import { useEffect ,useState} from 'react'
 import { useForm } from "react-hook-form"
 import { Validate } from "@/app/actions/useractions"
 
-const login = () => {
+const Login = () => {
     const { data: session, status } = useSession()
     const router = useRouter();
     const {
@@ -116,4 +116,4 @@ const login = () => {
     )
 }
 
-export default login
+export default Login

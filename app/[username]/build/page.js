@@ -11,7 +11,7 @@ import { useState } from 'react'
 import { useParams } from 'next/navigation'
 import { redirect } from 'next/dist/server/api-utils'
 
-const page = () => {
+const Page = () => {
   const { data: session, status } = useSession();
   const router = useRouter()
 
@@ -19,13 +19,11 @@ const page = () => {
 
 
   const onSubmit = async (data) => {
-    console.log(data)
     await addPost(data, session?.user?.email)
     router.push(`/${session?.user?.email.split('@')[0]}`)
   }
 
   const handleDelete = async (i) => {
-    console.log(session?.user?.email);
     await delPost(i, session?.user?.email);
     router.push(`/${session?.user?.email.split('@')[0]}`)
   }
@@ -48,8 +46,6 @@ const page = () => {
     const getUser = async () => {
       const u = await fetchUser(`${username}@gmail.com`);
       setcurrentUser(u);
-      console.log(u)
-
     };
     getUser();
   }, [username]);
@@ -149,4 +145,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
