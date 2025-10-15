@@ -25,7 +25,7 @@ const isHidden = hiddenRoutes.includes(pathname)
   if (session) {
     return (
       <div className=' flex justify-between items-center w-[100vw] bg-gray-800 text-white h-15 px-10 fixed z-9'>
-        <div onClick={() => router.push("/")} className='flex items-center gap-4 cursor-pointer'><span><Image className="h-8  rounded-full" width={32} height={32}  src="/Money Bag.gif" alt="Funding App Logo" /></span><h1 className='md:text-3xl  text-2xl font-bold'>FundOra </h1></div>
+        <div onClick={() => router.push("/")} className='flex mx-[-20] md-2 items-center gap-3 cursor-pointer'><span><Image className="h-8  rounded-full" width={32} height={32}  src="/Money Bag.gif" alt="Funding App Logo" /></span><h1 className='md:text-3xl  text-2xl font-bold'>FundOra </h1></div>
         <nav className='flex space-between items-center'>
           {/* <ul className='flex space-x-10'>
           <li><Link href="/">Home</a></li>
@@ -37,7 +37,7 @@ const isHidden = hiddenRoutes.includes(pathname)
           <img className={`${!hamstate?("flex"):("hidden")} invert-100 h-8 w-8 lg:hidden`} src="/cross.svg" alt="hi" srcSet="" />
         </div>
           {hamstate?(
-            <div className='hidden  lg:flex flex-col justify-evenly items-center bg-gray-800 text-white h-15 px-10 gap-4 md:flex-row'>
+            <div className='hidden  lg:flex flex-col justify-evenly items-center bg-gray-800 text-white h-15 px-10 gap-4 md:flex-row mx-[-50]'>
             <span className="flex gap-3 items-center text-sm">
               <div className="relative">
                 {/* dropdown button */}
@@ -104,8 +104,8 @@ const isHidden = hiddenRoutes.includes(pathname)
 
 
   return (
-    <div className='flex justify-between items-center bg-gray-800 text-white h-15 px-10'>
-      <div onClick={() => router.push("/")} className='flex items-center gap-4 cursor-pointer '><span><Image className="h-8 rounded-full" src="/Money Bag.gif" width={32} height={32} alt="Funding App Logo" /></span><h1 className='text-3xl font-bold'>FundOra</h1></div>
+    <div className='flex justify-between items-center bg-gray-800 text-white h-15 px-2 md-px-10'>
+      <div onClick={() => router.push("/")} className='flex items-center gap-4 cursor-pointer mx-2'><span><Image className="h-8 rounded-full" src="/Money Bag.gif" width={32} height={32} alt="Funding App Logo" /></span><h1 className='text-3xl font-bold'>FundOra</h1></div>
       <nav className='flex space-between items-center justify-center'>
         {/* <ul className='flex space-x-10'>
           <li><Link href="/">Home</a></li>
