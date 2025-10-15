@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Fundflow-website is for funding",
+  title: "FundOra-website is for funding",
   description: "this website is for funding",
 };
 
