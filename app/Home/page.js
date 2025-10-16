@@ -12,18 +12,26 @@ const Page = () => {
   const [userdata, setuserdata] = useState([])
    const { data: session, status } = useSession()
     const router = useRouter()
-    
+    const [Loading, setLoading] = useState(true)
     useEffect(() => {
       if (status === "loading") return; // avoid early redirect before auth is ready
       if (!session) router.push("/login");
     }, [session, status, router]);
 
-
+  
+  if (Loading || status === "loading") {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-900 text-white text-xl">
+        Loading...
+      </div>
+    );
+  } 
 
     useEffect(() => {
         const getUser = async () => {
           const users = await GetUsers(session?.user?.email)
           setuserdata(users)
+          setLoading(false);
           
         };
         getUser();

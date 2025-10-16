@@ -11,7 +11,7 @@ import Image from "next/image";
 const Page = () => {
 
 
-
+  const [Loading, setLoading] = useState(true)
   const { data: session, status } = useSession()
   const router = useRouter()
   useEffect(() => {
@@ -32,9 +32,18 @@ const Page = () => {
     const getUser = async () => {
       const u = await fetchUser(`${username}@gmail.com`);
       setcurrentUser(u);
+      setLoading(false)
     };
     getUser();
   }, [username]);
+
+  if (Loading || status === "loading") {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-900 text-white text-xl">
+        Loading...
+      </div>
+    );
+  } 
 
   const Email=session?.user?.email
 
