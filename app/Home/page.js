@@ -29,12 +29,12 @@ const Page = () => {
         getUser();
       }, [status, session]);
   return (
-    <div className='flex md:flex-row flex-col md:gap-35 md:items-start items-center md:flex-wrap'>
+    <div className='flex md:flex-row flex-col md:mt-25 md:items-start items-center md:flex-wrap'>
        {userdata.map((u)=>(
         <div key={u.email} className="md:w-80 mt-35 w-[70vw] mx-8 bg-gray-800 rounded-xl shadow-2xl  transform hover:scale-[1.02] transition duration-300 ease-in-out  p-6 border border-gray-700">
       
       {/* Profile Picture */}
-      <div className="flex justify-center -mt-16">
+      <div className="flex justify-center mt-16">
         <img
           className="w-24 h-24 object-cover rounded-full border-4 border-cyan-400 shadow-lg"
           src={u.profilepic}
