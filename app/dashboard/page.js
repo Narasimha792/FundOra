@@ -15,6 +15,12 @@ const Dashboard = () => {
 
   const [currentUser, setcurrentUser] = useState({})
   const [showpass, setshowpass] = useState(false)
+
+   useEffect(() => {
+    if (status === "loading") return
+    if (!session) router.push("/login")
+  }, [status, session, router])
+
   // Get the dynamic route params
   const Username = session?.user?.email;
   useEffect(() => {
