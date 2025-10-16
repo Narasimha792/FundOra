@@ -50,7 +50,7 @@ useEffect(() => {
       UserType: currentUser.UserType || "creator",
     });
   }
-}, [currentUser, reset, session]);
+}, [currentUser, reset, status, session]);
 
 
 
