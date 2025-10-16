@@ -27,7 +27,7 @@ const Page = () => {
           
         };
         getUser();
-      }, []);
+      }, [status, session]);
   return (
     <div className='flex md:flex-row flex-col md:items-start items-center'>
        {userdata.map((u)=>(
