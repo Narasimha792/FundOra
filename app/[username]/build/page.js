@@ -14,7 +14,7 @@ import { redirect } from 'next/dist/server/api-utils'
 const Page = () => {
   const { data: session, status } = useSession();
   const router = useRouter()
-
+  const [Loading, setLoading] = useState(true)
 
 
 
@@ -31,7 +31,7 @@ const Page = () => {
 
 
   useEffect(() => {
-    if (status === "loading") return <div>loading</div>; // avoid early redirect before auth is ready
+    if (status === "loading") return; // avoid early redirect before auth is ready
     if (!session) router.push("/login");
   }, [session, status, router]);
 
@@ -46,6 +46,7 @@ const Page = () => {
     const getUser = async () => {
       const u = await fetchUser(`${username}@gmail.com`);
       setcurrentUser(u);
+      setLoading(false)
     };
     getUser();
   }, [username]);
@@ -102,6 +103,14 @@ const Page = () => {
     watch,
     formState: { errors },
   } = useForm();
+
+  if (Loading || status === "loading") {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-900 text-white text-xl">
+        Loading...
+      </div>
+    );
+  } 
 
   const Posts = currentUser?.works || [];
   return (

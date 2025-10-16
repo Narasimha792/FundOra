@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = () => {
   const { data: session, status } = useSession();
-
+  
   const [currentUser, setcurrentUser] = useState({})
   const [showpass, setshowpass] = useState(false)
   // Get the dynamic route params
