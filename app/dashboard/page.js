@@ -41,13 +41,13 @@ useEffect(() => {
       name: currentUser.name || "",
       username: session?.user?.email?.split('@')[0] || "",
       email: session?.user?.email || "",
-      profilepic: currentUser.profilepic || "",
+      profilepic: currentUser.profilepic || "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS1kbs-XDuLC404jEtS5hV_XHrZ3Ug7imryywccfsgjABiqllID_6B0RKkBoiSKHz0gUjoBsAwxPCujJnRg_O07PKHUGdxIk3DuqHndqz19DA",
       password: currentUser.password,
       UserType:currentUser.UserType ||"supporter",
-      coverpic: currentUser.coverpic || "",
+      coverpic: currentUser.coverpic || "https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8=",
       razorpayid: currentUser.Razorpayid || "",
       razorpaysecret: currentUser.Razorpaysecret || "",
-      UserType: currentUser.UserType || "creator",
+      UserType: currentUser.UserType || "",
     });
   }
 }, [currentUser, reset, session]);
