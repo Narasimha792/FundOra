@@ -65,7 +65,7 @@ const Username = () => {
   const onSubmit = async (formData) => {
     setbutton(true)
     await pay(formData.amount, formData);
-    setbutton(false)
+    
     
 
   };
@@ -127,26 +127,13 @@ const Username = () => {
 
   useEffect(() => {
     if (searchParams.get("paymentdone") === "true") {
-      toast('✅ payment done successfully', {
-        position: "top-right",
-        autoClose: 2500,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      }
-
-      )
       setTimeout(() => {
         router.push(`/${Username}/payment/success`)
       }, 3000);
     }
   }, [searchParams]);
 
-  if (loading || status === "loading") {
+  if (loading || status === "loading"||button) {
     return (
       <div className="flex justify-center items-center h-screen bg-gray-900 text-white text-xl">
         <div role="status">
@@ -223,7 +210,7 @@ const Username = () => {
                 <input type="text" className="border-2 border-slate-600 rounded-2xl lg:w-[25vw] w-[60vw] p-2" placeholder='Enter your message' {...register("message")} />
                 <input id="amount" type="number" className="border-2 border-slate-600 rounded-2xl lg:w-[25vw] w-[60vw] p-2" placeholder='Enter amount' {...register("amount", { required: true })} />
                 {/* errors will return when field validation fails  */}
-                <button className={` flex items-center justify-center text-white bg-gradient-to-br cursor-pointer from-purple-600 to-violet-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-2xl text-sm px-5 py-2.5 text-center lg:w-[25vw] w-[60vw] disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-400`} disabled={button} >Pay</button>
+                <button className={` flex items-center justify-center text-white bg-gradient-to-br cursor-pointer from-purple-600 to-violet-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-2xl text-sm px-5 py-2.5 text-center lg:w-[25vw] w-[60vw]`} >Pay</button>
                 <div className="flex mt-4 ">
                   <button onClick={() => { document.getElementById("amount").value = "10" }} className="bg-white p-2 px-1 text-sm  mr-4 border-2 text-slate-600 rounded-2xl">pay ₹10</button>
                   <button onClick={() => { document.getElementById("amount").value = "20" }} className="bg-white p-2 px-1  text-sm mr-4 border-2 text-slate-600 rounded-2xl">pay ₹20</button>
