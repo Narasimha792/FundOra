@@ -20,14 +20,6 @@ const Username = () => {
   const params = useParams(); // Get the dynamic route params
   const Username = params?.username;
 
-   const { data: session, status } = useSession()
-  const router = useRouter()
-  useEffect(() => {
-    if (status === "loading") return; // avoid early redirect before auth is ready
-    if (!session) router.push("/login");
-  }, [session, status, router]);
-
-  
   useEffect(() => {
     const getUser = async () => {
       const payments = await GetPayData(`${Username}`)
@@ -39,7 +31,12 @@ const Username = () => {
   }, [Username]);
 
  
-  
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  useEffect(() => {
+    if (status === "loading") return; // avoid early redirect before auth is ready
+    if (!session) router.push("/login");
+  }, [session, status, router]);
   // forms
 
   const {
