@@ -1,58 +1,72 @@
 "use client"
-import React, { useEffect, useState } from 'react';
-import { useSession } from "next-auth/react";
+import React from 'react'
+import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation';
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from 'react';
+import { useForm } from "react-hook-form"
 import { Save } from '../actions/savadata';
 import { fetchUser } from '../actions/useractions';
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const Dashboard = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [currentUser, setcurrentUser] = useState({})
+  const [showpass, setshowpass] = useState(false)
 
-  const [currentUser, setcurrentUser] = useState({});
-  const [showpass, setshowpass] = useState(false);
-
-  // Redirect if not logged in
   useEffect(() => {
-    if (status === "loading") return;
-    if (!session) router.push("/login");
-  }, [status, session, router]);
+    if (status === "loading") return
+    if (!session) router.push("/login")
+  }, [status, session, router])
 
-  // Fetch current user data after session is authenticated
+  // Get the dynamic route params
+  const Username = session?.user?.email;
   useEffect(() => {
-    if (status === "authenticated" && session?.user?.email) {
       const getUser = async () => {
-        const u = await fetchUser(session.user.email);
+        const u = await fetchUser(`${Username}`);
         setcurrentUser(u);
+
       };
       getUser();
-    }
-  }, [status, session]);
+  }, [Username]);
 
-  // React Hook Form setup
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-  // Populate form with fetched user data
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
   useEffect(() => {
-    if (currentUser && status === "authenticated") {
+    if (currentUser) {
       reset({
         name: currentUser.name || "",
         username: session?.user?.email?.split('@')[0] || "",
         email: session?.user?.email || "",
         profilepic: currentUser.profilepic || "",
-        password: currentUser.password || "",
-        UserType: currentUser.UserType || "creator",
+        password: currentUser.password,
+        UserType: currentUser.UserType || "supporter",
         coverpic: currentUser.coverpic || "",
         razorpayid: currentUser.Razorpayid || "",
         razorpaysecret: currentUser.Razorpaysecret || "",
+        UserType: currentUser.UserType || "creator",
       });
     }
-  }, [currentUser, reset, session, status]);
+  }, [currentUser, reset, status, session]);
 
-  // Save form data
+
+
+  
+
+  useEffect(() => {
+    if (status === "loading") return; // avoid early redirect before auth is ready
+    if (!session) router.push("/login");
+  }, [session, status, router]);
+
   const onSubmit = async (data) => {
     await Save(data, session?.user?.email);
     toast('✅ Data Saved', {
@@ -68,63 +82,55 @@ const Dashboard = () => {
     });
   };
 
+
+
+
   return (
-    <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Bounce}
-      />
+    <> <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      transition={Bounce}
+    />
       <div className='flex flex-col items-center justify-center min-h-screen py-2 text-white'>
         <form className="text-white grid gap-2 md:w-[50vw] w-[80vw] mt-20" onSubmit={handleSubmit(onSubmit)}>
-          
-          <label htmlFor="name" className="block text-sm font-medium dark:text-white">Name</label>
-          <input id="name" {...register("name", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline" />
+          <label htmlFor="name" className="block text-sm font-medium dark:text-white">name</label>
+          <input id="name" {...register("name", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" type="text"  />
           {errors.name && <span>This field is required</span>}
-
-          <label htmlFor="username" className="block text-sm font-medium dark:text-white">Username</label>
-          <input id="username" {...register("username", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline" />
+          <label htmlFor="username" className="block text-sm font-medium dark:text-white">username</label>
+          <input id="username" {...register("username", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" type="text"  />
           {errors.username && <span>This field is required</span>}
-
           <label htmlFor="email" className="block text-sm font-medium dark:text-white">Email</label>
-          <input id="email" {...register("email", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline" />
+          <input id="email" {...register("email", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" type="email"/>
           {errors.email && <span>This field is required</span>}
-
-          <label htmlFor="password" className="block text-sm font-medium dark:text-white">Password</label>
-          <input id="password" placeholder="Password" {...register("password", { required: true, minLength: { value: 8, message: "Minimum 8 characters required" } })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline" type={showpass ? "text" : "password"} />
-          {errors.password && <span>{errors.password.message || "This field is required"}</span>}
-          <div><input type="checkbox" onClick={() => setshowpass(!showpass)} /> Show Password</div>
-
-          <label htmlFor="UserType" className="block text-sm font-medium dark:text-white">User Type</label>
-          <select id="UserType" {...register("UserType")} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline">
-            <option value="creator">Creator</option>
-            <option value="supporter">Supporter</option>
+          <label htmlFor="password" className="block text-sm font-medium dark:text-white">password</label>
+          <input placeholder='password'{...register("password", { required: true, minLength: { value: 8, message: "minimum 8 characters required" } })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" id="razorpaysecret" type={showpass ? "text" : "password"}  />
+          {errors.password && <span>This field is required</span>}
+          <div><input type="checkbox" onClick={() => { setshowpass(!showpass) }} /> Show Password</div>
+          <label htmlFor="userType" className="block text-sm font-medium dark:text-white">User Type</label>
+          <select className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"{...register("UserType")}>
+            <option value="creator">creator</option>
+            <option value="supporter">supporter</option>
           </select>
-
           <label htmlFor="profilepic" className="block text-sm font-medium dark:text-white">Profile Pic</label>
-          <input id="profilepic" {...register("profilepic", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline" />
+          <input {...register("profilepic", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" id="profilepic" type="text"  />
           {errors.profilepic && <span>This field is required</span>}
-
           <label htmlFor="coverpic" className="block text-sm font-medium dark:text-white">Cover Pic</label>
-          <input id="coverpic" {...register("coverpic", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline" />
+          <input {...register("coverpic", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" id="coverpic" type="text" />
           {errors.coverpic && <span>This field is required</span>}
-
-          <label htmlFor="razorpayid" className="block text-sm font-medium dark:text-white">Razorpay ID</label>
-          <input id="razorpayid" {...register("razorpayid", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline" />
+          <label htmlFor="razorpayid" className="block text-sm font-medium dark:text-white">Razorpayid</label>
+          <input {...register("razorpayid", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" id="razorpayid" type="text" />
           {errors.razorpayid && <span>This field is required</span>}
-
-          <label htmlFor="razorpaysecret" className="block text-sm font-medium dark:text-white">Razorpay Secret</label>
-          <input id="razorpaysecret" {...register("razorpaysecret", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white focus:outline-none focus:shadow-outline" type="password" />
+          <label htmlFor="razorpaysecret" className="block text-sm font-medium dark:text-white">Razorpaysecret</label>
+          <input {...register("razorpaysecret", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" id="razorpaysecret" type="password"/>
           {errors.razorpaysecret && <span>This field is required</span>}
-
           <button type="submit" className="w-full my-2 py-1 rounded-lg bg-cyan-400">Save</button>
         </form>
       </div>
@@ -132,4 +138,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Dashboard
