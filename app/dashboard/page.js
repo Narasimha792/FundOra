@@ -36,17 +36,18 @@ const {
 } = useForm();
 
 useEffect(() => {
-  if (currentUser && Object.keys(currentUser).length) {
+  if (currentUser) {
     reset({
       name: currentUser.name || "",
       username: session?.user?.email?.split('@')[0] || "",
       email: session?.user?.email || "",
       profilepic: currentUser.profilepic || "",
       password: currentUser.password,
-      UserType: currentUser.UserType || "supporter",
+      UserType:currentUser.UserType ||"supporter",
       coverpic: currentUser.coverpic || "",
       razorpayid: currentUser.Razorpayid || "",
       razorpaysecret: currentUser.Razorpaysecret || "",
+      UserType: currentUser.UserType || "creator",
     });
   }
 }, [currentUser, reset, session]);
