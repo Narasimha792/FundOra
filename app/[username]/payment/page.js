@@ -34,7 +34,7 @@ const Username = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
   useEffect(() => {
-    if (status === "loading") return; // avoid early redirect before auth is ready
+    if (status === "loading") return "loading"; // avoid early redirect before auth is ready
     if (!session) router.push("/login");
   }, [session, status, router]);
   // forms
