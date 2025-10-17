@@ -82,12 +82,12 @@ const Page = () => {
             let diff = Math.abs(now - created);
 
             // convert to time units
-            const seconds = Math.round(diff / 1000);
-            const minutes = Math.round(seconds / 60);
-            const hours = Math.round(minutes / 60);
-            const days = Math.round(hours / 24);
-            const months = Math.round(days / 30);
-            const years = Math.round(days / 365);
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            const months = Math.floor(days / 30);
+            const years = Math.floor(days / 365);
 
             if (months == 1) {
               return `${months} month`
