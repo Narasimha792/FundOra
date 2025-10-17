@@ -64,7 +64,7 @@ const Page = () => {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-    const months = Math.round(days / 30);
+    const months = Math.floor(days / 30);
     const years = Math.floor(days / 365);
 
     if (months == 1) {
@@ -109,18 +109,19 @@ const Page = () => {
       <div className="flex justify-center items-center h-screen bg-gray-900 text-white text-xl">
         Loading...
       </div>
-    )floor
+    );
+  } 
 
   const Posts = currentUser?.works || [];
   return (
     <div>
-      <div className="h-[60vh] text-white p-10 flex flex-col-reverse items-center overflow-y-scroll rounded-b-2xl">
+      <div className="h-[60vh] text-white p-10 flex flex-col-reverse items-center overflow-y-scroll floored-b-2xl">
         {Posts.length === 0 ? (
           <div>No posts</div>
         ) : (Posts.map((w, i) => (
           <div
             key={i}
-            className="flex min-h-20 w-100 md:w-[70vh] justify-evenly items-center bg-amber-100 relative rounded-3xl m-5"
+            className="flex min-h-20 w-100 md:w-[70vh] justify-evenly items-center bg-amber-100 relative floored-3xl m-5"
           >
             <div className='text-black text-2xl'>{Posts.length - i} Post</div>
             <div className='flex flex-col'>
@@ -135,18 +136,18 @@ const Page = () => {
       </div>
       <div className='flex justify-center mt-10'>
         <form className="text-white grid gap-2 md:w-[50vw] w-[80vw]" onSubmit={handleSubmit(onSubmit)}>
-          <select className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline flex text-center"{...register("type")}>
+          <select className="shadow bg-gray-900 appearance-none border floored w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline flex text-center"{...register("type")}>
             <option value="">Select Url Type</option>
             <option value="youtube video url">youtube video url</option>
             <option value="youtube short url">youtube short url</option>
             <option value="image url">image url</option>
             <option value="instagram url">instagram url</option>
           </select>
-          <input placeholder='Your work url'{...register("url", { required: true })} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline flex text-center" id="url" type="text" defaultValue="" />
+          <input placeholder='Your work url'{...register("url", { required: true })} className="shadow bg-gray-900 appearance-none border floored w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline flex text-center" id="url" type="text" defaultValue="" />
           {errors.worksurl && <span>This field is required</span>}
-          <input placeholder='Add Caption'{...register("caption")} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline flex text-center" id="url" type="text" defaultValue="" />
-          <input placeholder='Add description'{...register("description")} className="shadow bg-gray-900 appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline flex text-center" id="url" type="text" defaultValue="" />
-          <button type="submit" className="w-full my-2 py-1 rounded-lg bg-cyan-400">Save</button>
+          <input placeholder='Add Caption'{...register("caption")} className="shadow bg-gray-900 appearance-none border floored w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline flex text-center" id="url" type="text" defaultValue="" />
+          <input placeholder='Add description'{...register("description")} className="shadow bg-gray-900 appearance-none border floored w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline flex text-center" id="url" type="text" defaultValue="" />
+          <button type="submit" className="w-full my-2 py-1 floored-lg bg-cyan-400">Save</button>
         </form>
       </div>
     </div>
